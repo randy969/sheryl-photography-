@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sheryl-ross.onrender.com/sitemap.xml

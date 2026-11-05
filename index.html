@@ -622,7 +622,7 @@ var ALL = PHOTOS.concat(SUNSETS);
   function close(fromUrl){
     lb.hidden = true; document.body.classList.remove('locked');
     stage.innerHTML=''; if(lastFocus&&lastFocus.focus) lastFocus.focus();
-    if (!fromUrl && slugIndex(location.hash.slice(1)) > -1) history.pushState(null,'',location.pathname+location.search);
+    if (!fromUrl && slugIndex(slugFromUrl()) > -1) history.pushState(null,'',BASE);
   }
 
   /* ---- a real link for every photograph ------------------------------ */
@@ -630,11 +630,21 @@ var ALL = PHOTOS.concat(SUNSETS);
     for (var i=0;i<ALL.length;i++) if (ALL[i].slug === slug) return i;
     return -1;
   }
+  /* Share URLs point at a real page, /p/<slug>.html, which exists on disk
+     and carries its own preview card. Pushed without navigating, so the
+     gallery never reloads. Older #slug links still work. */
+  /* captured once, before anything is pushed: a relative push would
+     otherwise resolve against the pushed URL and compound to /p/p/ */
+  var BASE = location.pathname.replace(/[^\/]*$/, '');
   function setHash(slug){
-    try { history.pushState(null, '', '#' + slug); } catch(_) {}
+    try { history.pushState(null, '', BASE + 'p/' + slug + '.html'); } catch(_) {}
+  }
+  function slugFromUrl(){
+    var m = location.pathname.match(/\/p\/([a-z0-9\-]+)\.html$/);
+    return m ? m[1] : location.hash.slice(1);
   }
   function fromHash(){
-    var i = slugIndex(location.hash.slice(1));
+    var i = slugIndex(slugFromUrl());
     if (i > -1) { if (lb.hidden) open(i, true); else render(i); }
     else if (!lb.hidden) close(true);
   }
@@ -782,7 +792,7 @@ var ALL = PHOTOS.concat(SUNSETS);
   pickColor();
 
   document.getElementById('yr').textContent = String(new Date().getFullYear());
-  if (location.hash) fromHash();
+  if (location.hash || /\/p\//.test(location.pathname)) fromHash();
 })();
 </script>
 </body>
