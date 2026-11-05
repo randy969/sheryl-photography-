@@ -1,0 +1,594 @@
+<title>Sheryl Ross Photography</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap">
+<style>
+/* A dark gallery the photographs light up. Each piece carries its own colour into
+   the page. Showcase first; the shop is a quiet door near the end.
+   Mobile first, large type, every control labelled, nothing behind a hover. */
+:root {
+  --ground:   #0E0C0B;
+  --raise:    #171512;
+  --hair:     #322D26;
+  --fg:       #F4F0E8;
+  --muted:    #BFB7A9;
+  --dim:      #8A8276;
+  --dusk:     #B7AEE0;
+  --paper:    #FAF8F3;
+  --ink:      #1C1A17;
+  --ink-soft: #4E4942;
+  --rule-lt:  #DCD6CA;
+  --f: 'Cormorant Garamond', 'Hoefler Text', Georgia, 'Times New Roman', serif;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0; background: var(--ground); color: var(--fg);
+  font-family: var(--f); font-size: 19px; line-height: 1.66;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+@media (max-width: 899px) { body { padding-bottom: 84px; } }
+body::before { content:""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top,0px); z-index: 70; background: var(--ground); }
+
+img { display: block; max-width: 100%; }
+a { color: var(--dusk); text-underline-offset: 4px; }
+::selection { background: var(--dusk); color: var(--ground); }
+:focus-visible { outline: 3px solid var(--dusk); outline-offset: 3px; }
+h1,h2,h3 { margin: 0; font-weight: 400; line-height: 1.1; text-wrap: balance; }
+p { margin: 0; }
+button { font-family: inherit; }
+
+.wrap { width: 100%; max-width: 1400px; margin-inline: auto;
+  padding-left: max(20px, env(safe-area-inset-left,0px));
+  padding-right: max(20px, env(safe-area-inset-right,0px)); }
+.eyebrow { font-size: 14px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.skip { position:absolute; left:-9999px; background: var(--fg); color: var(--ground); padding: 16px 24px; z-index: 200; }
+.skip:focus { left: 12px; top: 12px; }
+
+/* ---------------------------------------------------------- header ----- */
+.header { position: sticky; top: env(safe-area-inset-top,0px); z-index: 60;
+  background: color-mix(in srgb, var(--ground) 92%, transparent);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--hair); }
+.header .wrap { display: flex; align-items: center; gap: 16px; padding-block: 11px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--fg); }
+.brand .name { font-size: 19px; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; }
+.nav { display: flex; gap: 8px; margin-left: auto; }
+.pill { display: inline-flex; align-items: center; min-height: 46px; padding: 8px 17px;
+  border: 2px solid var(--hair); border-radius: 999px; text-decoration: none; color: var(--fg);
+  font-size: 16px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; white-space: nowrap;
+  transition: border-color .2s, background .2s, color .2s; }
+.pill:hover { border-color: var(--dusk); }
+.pill[aria-current] { background: var(--dusk); border-color: var(--dusk); color: var(--ground); }
+@media (max-width: 899px) { .nav { display: none; } }
+
+.bar { position: fixed; left:0; right:0; bottom:0; z-index: 58; display:none;
+  background: var(--ground); border-top: 2px solid var(--hair); padding-bottom: env(safe-area-inset-bottom,0px); }
+@media (max-width: 899px) { .bar { display: flex; } }
+.bar a { flex:1 1 0; min-height:70px; display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:4px; text-decoration:none; color: var(--fg); }
+.bar span { font-size: 14px; font-weight: 600; }
+.bar a[aria-current] { color: var(--dusk); }
+
+/* ------------------------------------------------------------ hero ----- */
+.hero { position: relative; overflow: hidden; }
+.hero__img { position: absolute; inset: 0; }
+.hero__img img { width:100%; height:100%; object-fit: cover; object-position: center 68%;
+  opacity: .96; transform: scale(1.06); }
+@media (prefers-reduced-motion: no-preference) {
+  .hero__img img { animation: drift 26s ease-in-out infinite alternate; }
+  @keyframes drift { from { transform: scale(1.04) translate3d(0,0,0); } to { transform: scale(1.14) translate3d(-1.5%,-2%,0); } }
+}
+.hero__img::after { content:""; position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(14,12,11,.46) 0%, rgba(14,12,11,.06) 26%,
+    rgba(14,12,11,.10) 50%, rgba(14,12,11,.62) 82%, rgba(14,12,11,.95) 100%); }
+.hero .wrap { position: relative; z-index: 2; min-height: 82vh; padding-block: clamp(70px,14vh,130px);
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 18px; }
+.hero h1 { font-size: clamp(44px, 13vw, 118px); font-weight: 300; line-height: .96;
+  letter-spacing: .06em; text-transform: uppercase; }
+.hero .tag { max-width: 24ch; font-size: clamp(21px, 5.4vw, 32px); font-style: italic;
+  font-weight: 300; line-height: 1.4; color: #EDE7DB; }
+.cue { display:inline-flex; align-items:center; gap:12px; margin-top:6px; text-decoration:none;
+  color: var(--fg); font-size: 15px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; min-height:48px; }
+.cue i { display:block; width:46px; height:1px; background: var(--fg); font-style: normal; }
+
+/* ----------------------------------------------------------- intro ----- */
+.intro .wrap { padding-block: clamp(54px, 9vw, 110px); }
+.intro p { font-size: clamp(25px, 5.4vw, 46px); font-weight: 300; line-height: 1.34;
+  max-width: 20ch; text-wrap: balance; }
+.intro .by { margin-top: 22px; }
+
+/* ------------------------------------------------------------ work ----- */
+.work { padding-bottom: clamp(40px, 6vw, 80px); }
+.work__head { display:flex; flex-direction:column; gap:10px; padding-block: 0 clamp(22px,3vw,34px); }
+.work__head h2 { font-size: clamp(30px, 6.4vw, 46px); font-weight: 300; }
+.grid { display: grid; grid-template-columns: 1fr; gap: clamp(26px, 3.4vw, 44px); }
+@media (min-width: 700px) { .grid { grid-template-columns: repeat(6, minmax(0,1fr)); } }
+
+.piece { position: relative; display: block; width: 100%; padding: 0; border: 0;
+  background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+@media (min-width: 700px) {
+  .piece.s2 { grid-column: span 2; }
+  .piece.s3 { grid-column: span 3; }
+  .piece.s6 { grid-column: span 6; }
+}
+.piece__frame { position: relative; overflow: hidden; background: var(--raise);
+  aspect-ratio: 3/4; isolation: isolate; }
+.piece.s6 .piece__frame { aspect-ratio: 4/5; }
+@media (min-width: 700px) { .piece.s6 .piece__frame { aspect-ratio: 21/9; } }
+.piece__frame img { width:100%; height:100%; object-fit: cover; transition: transform 1.1s cubic-bezier(.2,.7,.2,1); }
+.piece:hover .piece__frame img, .piece:focus-visible .piece__frame img { transform: scale(1.035); }
+/* the photograph's own colour, held just outside the edge */
+.piece::before { content:""; position:absolute; inset:-9% -6% -14%; z-index:-1; border-radius: 50%;
+  background: radial-gradient(60% 55% at 50% 55%, var(--c) 0%, transparent 72%);
+  opacity: .20; filter: blur(46px); pointer-events:none; transition: opacity .6s ease; }
+.piece:hover::before { opacity: .34; }
+.piece__cap { display:flex; align-items:baseline; gap:12px; padding-top: 15px; }
+.piece__dot { width:11px; height:11px; border-radius:50%; background: var(--c); flex-shrink:0; transform: translateY(-2px); }
+.piece__cap b { font-size: clamp(22px,4.6vw,27px); font-style: italic; font-weight: 400; line-height:1.2; }
+.piece__cap i { font-style: normal; font-size: 15px; font-weight:600; letter-spacing:.14em;
+  text-transform: uppercase; color: var(--dim); margin-left:auto; white-space:nowrap; }
+.piece__view { display:block; padding-top:6px; font-size:15px; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase; color: var(--c); }
+
+/* ----------------------------------------------------------- quote ----- */
+.quote { position: relative; margin-block: clamp(40px,6vw,86px); overflow:hidden; }
+.quote__img { position:absolute; inset:0; }
+.quote__img img { width:100%; height:100%; object-fit:cover; opacity:.46; }
+.quote__img::after { content:""; position:absolute; inset:0; background: rgba(14,12,11,.56); }
+.quote .wrap { position:relative; z-index:2; padding-block: clamp(70px,13vw,150px); }
+.quote p { font-size: clamp(26px, 6vw, 54px); font-weight: 300; font-style: italic;
+  line-height: 1.26; max-width: 17ch; text-wrap: balance; }
+
+/* ----------------------------------------------------------- about ----- */
+.about { background: var(--paper); color: var(--ink); }
+.about .wrap { padding-block: clamp(50px,8vw,98px); }
+.about__grid { display:grid; grid-template-columns:1fr; gap: clamp(30px,5vw,70px); align-items:start; }
+@media (min-width: 900px) { .about__grid { grid-template-columns: minmax(0,1fr) minmax(0,1.5fr); } }
+.about .eyebrow { color: var(--ink-soft); }
+.about h2 { font-size: clamp(34px,8vw,56px); font-weight:300; letter-spacing:.06em; text-transform:uppercase; margin-top:12px; }
+.about .lede { font-size: clamp(21px,4.6vw,26px); line-height:1.5; color:#2A2823; }
+.about .body { margin-top:22px; font-size:19px; line-height:1.72; color:#322F29; }
+.about .sig { margin-top:30px; font-style:italic; font-size:25px; line-height:1.4; color:#2A2823; }
+.portrait { margin-top:26px; aspect-ratio:4/5;
+  background: repeating-linear-gradient(135deg, transparent 0 11px, rgba(0,0,0,.03) 11px 22px), #EFEBE2;
+  border:1px solid var(--rule-lt); display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:0; font-size:16px; color:#8A857A; overflow:hidden; }
+.portrait img { width:100%; height:100%; object-fit:cover; }
+
+/* ---------------------------------------------------------- prints ----- */
+/* ---- together on a wall ---------------------------------------------- */
+.sets { border-top: 1px solid var(--hair); overflow: hidden; }
+.sets .wrap { padding-block: clamp(46px,7vw,86px); }
+.sets__head { display:flex; gap:20px; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; }
+.sets h2 { font-size: clamp(28px,6vw,46px); font-weight:300; max-width:20ch; margin-top:8px; }
+.sets__lede { margin-top:14px; font-size:19px; color:var(--muted); max-width:52ch; }
+.sets__arrows { display:flex; gap:10px; }
+.sets__arrows button {
+  display:inline-flex; align-items:center; gap:8px; min-height:52px; padding:0 18px;
+  border:1px solid var(--hair); border-radius:999px; background:transparent;
+  font:inherit; font-size:16px; color:var(--fg); cursor:pointer; }
+.sets__arrows button:disabled { opacity:.34; cursor:default; }
+.sets__arrows button:hover:not(:disabled) { border-color: var(--dusk); color: var(--dusk); }
+.sets__arrows button:focus-visible { outline:3px solid var(--dusk); outline-offset:3px; }
+.rail {
+  margin-top: clamp(24px,4vw,40px);
+  display:flex; gap: clamp(14px,2.4vw,26px);
+  overflow-x:auto; scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  padding-inline: 2px; padding-bottom: 6px; }
+.rail::-webkit-scrollbar { display:none; }
+.setcard { flex: 0 0 min(86vw, 460px); scroll-snap-align:center; }
+@media (min-width: 900px) { .setcard { flex-basis: 430px; } }
+.setcard__img {
+  position:relative; aspect-ratio:1/1; border-radius:4px; overflow:hidden;
+  background:var(--wash); box-shadow: 0 18px 44px rgba(20,16,12,.13); }
+.setcard__img img { width:100%; height:100%; object-fit:cover; display:block; }
+.setcard__n {
+  position:absolute; left:14px; top:14px; z-index:2;
+  display:inline-flex; align-items:center; min-height:34px; padding:0 14px;
+  border-radius:999px; background:rgba(252,251,248,.92); color:var(--ink);
+  font-size:14px; letter-spacing:.09em; text-transform:uppercase; }
+.setcard h3 { margin-top:16px; font-size:23px; font-weight:400; }
+.setcard p { margin-top:6px; font-size:17px; color:var(--muted); line-height:1.55; }
+.sets__note { margin-top: clamp(26px,4vw,40px); font-size:18px; color:var(--muted); max-width:60ch; }
+.sets__note a { color:var(--ink); text-underline-offset:4px; }
+
+.prints { border-top: 1px solid var(--hair); }
+.prints .wrap { padding-block: clamp(46px,7vw,86px); display:flex; gap:28px; flex-wrap:wrap; align-items:flex-end; }
+.prints__t { flex: 1 1 340px; min-width:0; }
+.prints h2 { font-size: clamp(28px,6vw,44px); font-weight:300; max-width:17ch; }
+.prints p { margin-top:12px; font-size:19px; color:var(--muted); max-width:46ch; }
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  min-height:58px; padding:14px 30px; text-decoration:none;
+  background: var(--dusk); color: var(--ground); border:2px solid var(--dusk);
+  font-size:17px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+.btn:hover { background: var(--fg); border-color: var(--fg); }
+.btn--quiet { background:none; color: var(--fg); border-color: var(--hair); }
+.btn--quiet:hover { background:none; border-color: var(--dusk); color: var(--dusk); }
+
+/* --------------------------------------------------------- contact ----- */
+.contact .wrap { padding-block: clamp(44px,7vw,84px); display:flex; flex-direction:column; gap:24px;
+  border-top: 1px solid var(--hair); }
+.contact h2 { font-size: clamp(30px,6.4vw,50px); font-weight:300; max-width:18ch; }
+.mail { display:inline-flex; align-items:center; min-height:58px; padding:13px 24px;
+  border:2px solid var(--dusk); color:var(--dusk); text-decoration:none;
+  font-size: clamp(18px,4.4vw,24px); align-self:flex-start; word-break:break-all; }
+.mail:hover { background: var(--dusk); color: var(--ground); }
+.footer .wrap { padding-block:24px; border-top:1px solid var(--hair);
+  display:flex; gap:10px 26px; flex-wrap:wrap; font-size:16px; color:var(--dim); }
+.footer .sp { margin-left:auto; }
+
+/* -------------------------------------------------------- lightbox ----- */
+#lb { position: fixed; inset: 0; z-index: 100; display:flex; flex-direction:column;
+  background: var(--ground);
+  padding-top: calc(env(safe-area-inset-top,0px) + 8px);
+  padding-bottom: calc(env(safe-area-inset-bottom,0px) + 8px); }
+#lb[hidden] { display:none !important; }
+#lb::before { content:""; position:absolute; inset:0;
+  background: radial-gradient(70% 55% at 50% 42%, var(--c,#888) 0%, transparent 70%);
+  opacity:.17; filter: blur(70px); pointer-events:none; }
+#lb .top, #lb .foot { position:relative; z-index:2; }
+#lb .top { display:flex; align-items:center; gap:12px; padding: 4px max(16px,env(safe-area-inset-left,0px)) 10px; }
+#lb .idx { font-size:17px; font-weight:600; color: var(--muted); font-variant-numeric: tabular-nums; }
+.lbbtn { display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  min-height:54px; padding:10px 20px; background:none; border:2px solid var(--hair);
+  color:var(--fg); cursor:pointer; font-size:16px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
+.lbbtn:hover { border-color: var(--dusk); }
+.lbbtn--close { margin-left:auto; }
+#lb .stage { position:relative; z-index:2; flex-grow:1; min-height:0; display:flex;
+  align-items:center; justify-content:center; padding-inline: max(14px,env(safe-area-inset-left,0px)); }
+#lb .stage img { max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; }
+#lb .foot { display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  padding: 12px max(16px,env(safe-area-inset-left,0px)) 0; }
+#lb .info { flex-grow:1; min-width:0; }
+#lb .info b { display:block; font-size:25px; font-style:italic; font-weight:400; }
+#lb .info a { display:inline-block; margin-top:4px; font-size:16px; font-weight:600;
+  letter-spacing:.06em; color: var(--c,#B7AEE0); }
+#lb .nav2 { display:flex; gap:10px; }
+body.locked { overflow:hidden; }
+
+/* --------------------------------------------------------- reveal ------ */
+.js .rev { opacity:0; transform: translateY(24px); }
+.js .rev.in { opacity:1; transform:none; transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); }
+@media (prefers-reduced-motion: reduce) { .js .rev { opacity:1; transform:none; transition:none; } }
+</style>
+
+<a class="skip" href="#work">Skip to the photographs</a>
+
+<header class="header">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 64 64" width="32" height="32" aria-hidden="true">
+        <circle cx="32" cy="32" r="29.25" fill="none" stroke="#B7AEE0" stroke-width="1.7"></circle>
+        <g fill="none" stroke="#B7AEE0" stroke-width="1.7" stroke-linejoin="round">
+          <path d="M32 32 L32 8.5 C25.5 15.5 25.5 24.5 32 32 Z"></path>
+          <path d="M32 32 L32 8.5 C25.5 15.5 25.5 24.5 32 32 Z" transform="rotate(60 32 32)"></path>
+          <path d="M32 32 L32 8.5 C25.5 15.5 25.5 24.5 32 32 Z" transform="rotate(120 32 32)"></path>
+          <path d="M32 32 L32 8.5 C25.5 15.5 25.5 24.5 32 32 Z" transform="rotate(180 32 32)"></path>
+          <path d="M32 32 L32 8.5 C25.5 15.5 25.5 24.5 32 32 Z" transform="rotate(240 32 32)"></path>
+          <path d="M32 32 L32 8.5 C25.5 15.5 25.5 24.5 32 32 Z" transform="rotate(300 32 32)"></path>
+        </g>
+        <circle cx="32" cy="32" r="2.4" fill="#B7AEE0"></circle>
+      </svg>
+      <span class="name">Sheryl Ross</span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a class="pill" href="#work">The Work</a>
+      <a class="pill" href="#about">About</a>
+      <a class="pill" href="#prints">Prints</a>
+      <a class="pill" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero__img"><img src="photos/sunset-sea-full.jpg" alt="The sun setting over open water beneath a bank of cloud" fetchpriority="high"></div>
+  <div class="wrap">
+    <p class="eyebrow">Fine Art Photography &nbsp;&middot;&nbsp; New Jersey</p>
+    <h1>Sheryl Ross</h1>
+    <p class="tag">A celebration of colors.</p>
+    <a class="cue" href="#work"><i></i> See the work</a>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <p class="rev">The simple beauty in flowers, at a scale the eye does not normally get to.</p>
+    <p class="eyebrow by rev">Close-up Flowers &nbsp;&middot;&nbsp; Sunsets &nbsp;&middot;&nbsp; Landscapes</p>
+  </div>
+</section>
+
+<main class="work" id="work">
+  <div class="wrap">
+    <div class="work__head">
+      <p class="eyebrow">Selected work</p>
+      <h2>Flowers up close, and the wider view.</h2>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</main>
+
+<section class="quote">
+  <div class="quote__img"><img src="photos/petunia-full.jpg" alt="" loading="lazy"></div>
+  <div class="wrap"><p class="rev">Close up vibrant details, meant to awaken passion and excitement.</p></div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about__grid">
+      <div>
+        <p class="eyebrow">About the artist</p>
+        <h2>Sheryl Ross</h2>
+        <div class="portrait"><img src="photos/portrait-grid.jpg"
+          srcset="photos/portrait-grid.jpg 1000w, photos/portrait-full.jpg 1600w"
+          sizes="(max-width: 899px) 92vw, 34vw" loading="lazy" decoding="async"
+          alt="Portrait of Sheryl Ross, to come"></div>
+      </div>
+      <div>
+        <p class="lede">Sheryl Ross is a local artist that captures the simple beauty in flowers throughout NJ and beyond. She brings a simplistic view, yet personal approach to the beauty in nature that surrounds us all. Sheryl&rsquo;s goal is to share her artwork in a way that evokes emotions of the heart and brings peace and relaxation to rest our busy minds. She hopes you enjoy her artwork of a celebration of colors, as much as she enjoys creating it.</p>
+        <p class="body">Often uses Macro Mode to enhance close up vibrant details, providing a unique perspective intended to awaken passion and excitement. Other pieces include drawings of Zen Tangles and photographs of Autumn, and Sunsets.</p>
+        <p class="body">Sheryl Ross has been an artist all her life. Inspired by her big sister Sue who travels the U.S. with her husband, selling art to communities accessible to people who want to bring art into their homes.</p>
+        <p class="body">In her spare time, Sheryl enjoys spending time with family, volunteers at community events, works with adults who have special needs, and also teaches Hebrew.</p>
+        <p class="sig">With blessings, gratitude, and love,<br>Sheryl Ross</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="prints" id="prints">
+  <div class="wrap">
+    <div class="prints__t">
+      <p class="eyebrow">If something stays with you</p>
+      <h2>Every photograph here can hang on a wall.</h2>
+      <p>Archival prints, signed and numbered, framed or unframed. Four sizes.</p>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a class="btn" id="shopBtn" href="#contact">See the prints</a>
+      <a class="btn btn--quiet" href="mailto:sherylross21@gmail.com?subject=A%20print">Ask Sheryl</a>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <p class="eyebrow">Get in touch</p>
+    <h2>Prints, commissions, and exhibitions.</h2>
+    <a class="mail" href="mailto:sherylross21@gmail.com">sherylross21@gmail.com</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>&copy; <span id="yr">2026</span> Sheryl Ross</span>
+    <span class="sp">All photographs by the artist</span>
+  </div>
+</footer>
+
+<nav class="bar" aria-label="Main">
+  <a href="#top"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/></svg><span>Home</span></a>
+  <a href="#work"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7.5" height="7.5"/><rect x="13.5" y="3" width="7.5" height="7.5"/><rect x="3" y="13.5" width="7.5" height="7.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5"/></svg><span>Work</span></a>
+  <a href="#prints"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16"/><path d="M8 8h8v8H8z"/></svg><span>Prints</span></a>
+  <a href="#contact"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5.5" width="18" height="13"/><path d="m3 7 9 6 9-6"/></svg><span>Contact</span></a>
+</nav>
+
+<div id="lb" hidden role="dialog" aria-modal="true" aria-label="Photograph viewer">
+  <div class="top">
+    <span class="idx" id="lbIdx"></span>
+    <button type="button" class="lbbtn lbbtn--close" id="lbClose">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 5 19 19M19 5 5 19"/></svg> Close
+    </button>
+  </div>
+  <div class="stage" id="lbStage"></div>
+  <div class="foot">
+    <div class="info"><b id="lbTitle"></b><a id="lbBuy" href="#prints">Available as a print &rarr;</a></div>
+    <div class="nav2">
+      <button type="button" class="lbbtn" id="lbPrev"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 4 7 12l8 8"/></svg> Back</button>
+      <button type="button" class="lbbtn" id="lbNext">Next <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 4l8 8-8 8"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Put the Shopify store URL here when it is live and every "print" link points at it. */
+var STORE_URL = "";
+
+/* span: how wide the piece sits on the desktop grid (2, 3 or 6 of six columns).
+   color: pulled from the photograph itself. */
+var PHOTOS = [
+  { slug:'gerbera',      title:'Two Gerbera',       span:'s3', color:'#FA2E43' },
+  { slug:'calla-red',    title:'Red Calla',         span:'s3', color:'#F92F31' },
+  { slug:'celosia',      title:'Celosia',           span:'s2', color:'#F9912F' },
+  { slug:'zinnia',       title:'Zinnia',            span:'s2', color:'#F9592F' },
+  { slug:'dahlia',       title:'Dahlia',            span:'s2', color:'#E88153' },
+  { slug:'petunia',      title:'Petunias',          span:'s6', color:'#F4739D' },
+  { slug:'calla-yellow', title:'Yellow Calla',      span:'s3', color:'#F3C835' },
+  { slug:'lantana',      title:'Lantana',           span:'s3', color:'#F9372F' },
+  { slug:'begonia-pale', title:'Tuberous Begonia',  span:'s2', color:'#F3614B' },
+  { slug:'hibiscus',     title:'Hibiscus',          span:'s2', color:'#F63236' },
+  { slug:'begonia-red',  title:'Wax Begonia',       span:'s2', color:'#F83043' }
+];
+
+/* Sunsets and the wider landscape work. */
+var SUNSETS = [
+  { slug:'sunset-sea',      title:'Last Light',   span:'s2', color:'#FA992E', tag:'Sunset' },
+  { slug:'sunset-ember',    title:'Ember',        span:'s2', color:'#F8730C', tag:'Sunset' },
+  { slug:'sunset-headland', title:'The Point',    span:'s2', color:'#FD880F', tag:'Sunset' },
+  { slug:'sunset-wake',     title:'Wake',         span:'s2', color:'#258BA6', tag:'Sunset' },
+  { slug:'beach-stairs',    title:'The Way Down', span:'s2', color:'#3F719D', tag:'Landscape' },
+  { slug:'cove-cypress',    title:'Cypress Cove', span:'s2', color:'#79AFD3', tag:'Landscape' }
+];
+
+/* One list behind the viewer so Back and Next run through everything. */
+var ALL = PHOTOS.concat(SUNSETS);
+
+(function () {
+  'use strict';
+  document.documentElement.classList.add('js');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function el(t,c,x){var n=document.createElement(t); if(c)n.className=c; if(x!=null)n.textContent=x; return n;}
+  function pad(n){return String(n).padStart(2,'0');}
+
+  if (STORE_URL) {
+    document.getElementById('shopBtn').href = STORE_URL;
+    document.getElementById('lbBuy').href = STORE_URL;
+  }
+
+  function build(list, host, offset) {
+    list.forEach(function (p, i) {
+      var b = el('button', 'piece rev ' + p.span);
+      b.type = 'button';
+      b.style.setProperty('--c', p.color);
+      b.dataset.i = String(offset + i);
+      b.setAttribute('aria-label', 'Open ' + p.title + ' larger');
+
+      var f = el('div','piece__frame');
+      var img = new Image();
+      img.src = 'photos/' + p.slug + '-grid.jpg';
+      img.srcset = 'photos/' + p.slug + '-grid.jpg 1400w, photos/' + p.slug + '-full.jpg 2300w';
+      img.sizes = p.span === 's6' ? '94vw' : (p.span === 's3' ? '(max-width:699px) 92vw, 47vw' : '(max-width:699px) 92vw, 31vw');
+      img.alt = p.title + ', a photograph by Sheryl Ross';
+      img.decoding = 'async';
+      img.loading = (offset === 0 && i < 2) ? 'eager' : 'lazy';
+      f.appendChild(img);
+      b.appendChild(f);
+
+      var cap = el('div','piece__cap');
+      cap.appendChild(el('span','piece__dot'));
+      cap.appendChild(el('b',null,p.title));
+      cap.appendChild(el('i',null,p.tag || 'Macro'));
+      b.appendChild(cap);
+      b.appendChild(el('span','piece__view','View larger'));
+      host.appendChild(b);
+    });
+  }
+  build(ALL, document.getElementById('grid'), 0);
+
+  var revs = Array.prototype.slice.call(document.querySelectorAll('.rev'));
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        e.target.style.transitionDelay = ((parseInt(e.target.dataset.i,10)||0)%3)*90 + 'ms';
+        e.target.classList.add('in'); io.unobserve(e.target);
+      });
+    }, { rootMargin:'0px 0px -6% 0px', threshold:.04 });
+    revs.forEach(function(n){ io.observe(n); });
+  } else { revs.forEach(function(n){ n.classList.add('in'); }); }
+
+  var pills = Array.prototype.slice.call(document.querySelectorAll('.pill'));
+  var barLinks = Array.prototype.slice.call(document.querySelectorAll('.bar a'));
+  var ticking = false;
+  function onScroll(){
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function(){
+      var cur = '';
+      ['work','about','prints','contact'].forEach(function(id){
+        var t = document.getElementById(id);
+        if (t && t.getBoundingClientRect().top <= 150) cur = '#' + id;
+      });
+      pills.concat(barLinks).forEach(function(a){
+        if (a.getAttribute('href') === cur) a.setAttribute('aria-current','true');
+        else a.removeAttribute('aria-current');
+      });
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+
+  /* lightbox */
+  var lb = document.getElementById('lb'), stage = document.getElementById('lbStage');
+  var lbTitle = document.getElementById('lbTitle'), lbIdx = document.getElementById('lbIdx');
+  var cur = 0, lastFocus = null;
+
+  function render(i){
+    cur = (i + ALL.length) % ALL.length;
+    var p = ALL[cur];
+    lb.style.setProperty('--c', p.color);
+    stage.innerHTML = '';
+    var img = new Image();
+    img.src = 'photos/' + p.slug + '-full.jpg';
+    img.alt = p.title + ', a close-up photograph by Sheryl Ross';
+    img.decoding = 'async';
+    stage.appendChild(img);
+    [1,-1].forEach(function(d){
+      var n = ALL[(cur+d+ALL.length)%ALL.length];
+      var pre = new Image(); pre.src = 'photos/' + n.slug + '-full.jpg';
+    });
+    lbTitle.textContent = p.title;
+    lbIdx.textContent = 'Photograph ' + (cur+1) + ' of ' + ALL.length;
+  }
+  function open(i){ lastFocus = document.activeElement; render(i); lb.hidden = false;
+    document.body.classList.add('locked'); document.getElementById('lbClose').focus(); }
+  function close(){ lb.hidden = true; document.body.classList.remove('locked');
+    stage.innerHTML=''; if(lastFocus&&lastFocus.focus) lastFocus.focus(); }
+
+  document.addEventListener('click', function(e){
+    var t = e.target.closest ? e.target.closest('.piece') : null;
+    if (t) open(parseInt(t.dataset.i,10));
+  });
+  document.getElementById('lbClose').addEventListener('click', close);
+  document.getElementById('lbPrev').addEventListener('click', function(){ render(cur-1); });
+  document.getElementById('lbNext').addEventListener('click', function(){ render(cur+1); });
+  stage.addEventListener('click', function(e){ if(e.target===stage) close(); });
+  document.addEventListener('keydown', function(e){
+    if (lb.hidden) return;
+    if (e.key==='Escape') close();
+    else if (e.key==='ArrowLeft') render(cur-1);
+    else if (e.key==='ArrowRight') render(cur+1);
+  });
+  var tx=0;
+  lb.addEventListener('touchstart', function(e){ tx=e.changedTouches[0].clientX; }, {passive:true});
+  lb.addEventListener('touchend', function(e){
+    var dx=e.changedTouches[0].clientX-tx;
+    if (Math.abs(dx)>56) render(cur + (dx<0?1:-1));
+  }, {passive:true});
+
+  /* ---- rooms rail ---------------------------------------------------- */
+  var SETS = [
+    { f:'set-pair-callas',   n:'A pair',       t:'Modern',           d:'The two callas. Same flower, same sculptural line, opposite colour.' },
+    { f:'set-trio-radials',  n:'Set of three', t:'California cape',  d:'Gerbera, Zinnia and Dahlia. Three concentric blooms, red through coral.' },
+    { f:'set-trio-gradient', n:'Set of three', t:'Beach house',      d:'Tuberous Begonia, Petunia and Lantana, running pale peach to red.' },
+    { f:'set-quad-forms',    n:'Set of four',  t:'Tuscan villa',     d:'Four different flower shapes, so no two corners of the grid rhyme.' },
+    { f:'set-trio-cabin',    n:'Set of three', t:'Cabin',            d:'Red Calla, Hibiscus and Wax Begonia. Clean forms against a busy wall.' },
+    { f:'set-six-salon',     n:'Set of six',   t:'Spanish revival',  d:'A salon wall. Sculpted, textured and open blooms, mixed across both rows.' },
+    { f:'set-pair-lodge',    n:'A pair',       t:'Ski lodge',        d:'Dahlia and Wax Begonia, warm against dark stained plank.' },
+    { f:'set-trio-harvest',  n:'Set of three', t:'Farm to table',    d:'Zinnia, Celosia and Lantana over a long harvest table.' },
+    { f:'set-one-sunset',    n:'On its own',   t:'Farm to table',    d:'Last Light hangs alone. Nothing else of hers should compete with it.' }
+  ];
+  var rail = document.getElementById('setRail');
+  if (rail) {
+    SETS.forEach(function(s){
+      var card = document.createElement('article');
+      card.className = 'setcard';
+      card.innerHTML =
+        '<div class="setcard__img"><span class="setcard__n">' + s.n + '</span>' +
+        '<img src="photos/sets/' + s.f + '-sm.jpg"' +
+        ' srcset="photos/sets/' + s.f + '-sm.jpg 640w, photos/sets/' + s.f + '.jpg 1200w"' +
+        ' sizes="(max-width: 899px) 86vw, 430px" loading="lazy" decoding="async"' +
+        ' alt="' + s.d + '"></div>' +
+        '<h3>' + s.t + '</h3><p>' + s.d + '</p>';
+      rail.appendChild(card);
+    });
+
+    var prev = document.getElementById('setPrev'), next = document.getElementById('setNext');
+    function step(){ var c = rail.querySelector('.setcard'); return c ? c.offsetWidth + 22 : 420; }
+    function slide(dir){ rail.scrollBy({ left: dir * step(), behavior: 'smooth' }); }
+    prev.addEventListener('click', function(){ slide(-1); });
+    next.addEventListener('click', function(){ slide(1); });
+    function sync(){
+      prev.disabled = rail.scrollLeft < 8;
+      next.disabled = rail.scrollLeft > rail.scrollWidth - rail.clientWidth - 8;
+    }
+    rail.addEventListener('scroll', sync, { passive:true });
+    window.addEventListener('resize', sync);
+    sync();
+  }
+
+  document.getElementById('yr').textContent = String(new Date().getFullYear());
+})();
+</script>
