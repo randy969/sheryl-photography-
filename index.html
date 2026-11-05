@@ -45,6 +45,20 @@ body {
 @media (max-width: 899px) { body { padding-bottom: 84px; } }
 body::before { content:""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top,0px); z-index: 70; background: var(--ground); }
 
+/* The page takes the colour of whatever photograph you are looking at.
+   Two fixed layers behind everything: a flat wash and a soft bloom that
+   drifts with it. Slow enough to feel rather than notice. */
+.tint { position: fixed; inset: 0; z-index: -2; background: var(--ground);
+  transition: background-color 1500ms cubic-bezier(.33,.7,.3,1); }
+.bloom { position: fixed; inset: -20% -10% auto; height: 120vh; z-index: -1;
+  pointer-events: none; opacity: .30; filter: blur(90px);
+  background: radial-gradient(60% 50% at 50% 38%, var(--bloom, transparent) 0%, transparent 72%);
+  transition: background 1500ms cubic-bezier(.33,.7,.3,1), opacity 1200ms ease; }
+@media (prefers-reduced-motion: reduce) {
+  .tint, .bloom { transition-duration: 1ms; }
+}
+.header { transition: border-color 1200ms ease; }
+
 img { display: block; max-width: 100%; }
 a { color: var(--dusk); text-underline-offset: 4px; }
 ::selection { background: var(--dusk); color: var(--ground); }
@@ -305,6 +319,9 @@ body.locked { overflow:hidden; }
 </head>
 <body>
 
+
+<div class="tint" id="tint" aria-hidden="true"></div>
+<div class="bloom" id="bloom" aria-hidden="true"></div>
 
 <a class="skip" href="#work">Skip to the photographs</a>
 
@@ -597,30 +614,52 @@ var ALL = PHOTOS.concat(SUNSETS);
     lbTitle.textContent = p.title;
     lbIdx.textContent = 'Photograph ' + (cur+1) + ' of ' + ALL.length;
   }
-  function open(i){ lastFocus = document.activeElement; render(i); lb.hidden = false;
-    document.body.classList.add('locked'); document.getElementById('lbClose').focus(); }
-  function close(){ lb.hidden = true; document.body.classList.remove('locked');
-    stage.innerHTML=''; if(lastFocus&&lastFocus.focus) lastFocus.focus(); }
+  function open(i, fromUrl){
+    lastFocus = document.activeElement; render(i); lb.hidden = false;
+    document.body.classList.add('locked'); document.getElementById('lbClose').focus();
+    if (!fromUrl) setHash(ALL[cur].slug);
+  }
+  function close(fromUrl){
+    lb.hidden = true; document.body.classList.remove('locked');
+    stage.innerHTML=''; if(lastFocus&&lastFocus.focus) lastFocus.focus();
+    if (!fromUrl && slugIndex(location.hash.slice(1)) > -1) history.pushState(null,'',location.pathname+location.search);
+  }
+
+  /* ---- a real link for every photograph ------------------------------ */
+  function slugIndex(slug){
+    for (var i=0;i<ALL.length;i++) if (ALL[i].slug === slug) return i;
+    return -1;
+  }
+  function setHash(slug){
+    try { history.pushState(null, '', '#' + slug); } catch(_) {}
+  }
+  function fromHash(){
+    var i = slugIndex(location.hash.slice(1));
+    if (i > -1) { if (lb.hidden) open(i, true); else render(i); }
+    else if (!lb.hidden) close(true);
+  }
+  window.addEventListener('popstate', fromHash);
 
   document.addEventListener('click', function(e){
     var t = e.target.closest ? e.target.closest('.piece') : null;
     if (t) open(parseInt(t.dataset.i,10));
   });
-  document.getElementById('lbClose').addEventListener('click', close);
-  document.getElementById('lbPrev').addEventListener('click', function(){ render(cur-1); });
-  document.getElementById('lbNext').addEventListener('click', function(){ render(cur+1); });
+  document.getElementById('lbClose').addEventListener('click', function(){ close(); });
+  document.getElementById('lbPrev').addEventListener('click', function(){ step(-1); });
+  document.getElementById('lbNext').addEventListener('click', function(){ step(1); });
+  function step(d){ render(cur+d); setHash(ALL[cur].slug); }
   stage.addEventListener('click', function(e){ if(e.target===stage) close(); });
   document.addEventListener('keydown', function(e){
     if (lb.hidden) return;
     if (e.key==='Escape') close();
-    else if (e.key==='ArrowLeft') render(cur-1);
-    else if (e.key==='ArrowRight') render(cur+1);
+    else if (e.key==='ArrowLeft') step(-1);
+    else if (e.key==='ArrowRight') step(1);
   });
   var tx=0;
   lb.addEventListener('touchstart', function(e){ tx=e.changedTouches[0].clientX; }, {passive:true});
   lb.addEventListener('touchend', function(e){
     var dx=e.changedTouches[0].clientX-tx;
-    if (Math.abs(dx)>56) render(cur + (dx<0?1:-1));
+    if (Math.abs(dx)>56) step(dx<0?1:-1);
   }, {passive:true});
 
   /* ---- rooms rail ---------------------------------------------------- */
@@ -687,7 +726,63 @@ var ALL = PHOTOS.concat(SUNSETS);
     if (e.key === 'Escape' && !menu.hidden) closeMenu();
   });
 
+  /* ---- the page takes the colour of the piece in view ----------------- */
+  var tint = document.getElementById('tint'), bloom = document.getElementById('bloom');
+  var header = document.querySelector('.header');
+  var GROUND = [14,12,11];
+
+  function hexToRgb(h){
+    h = h.replace('#','');
+    return [parseInt(h.slice(0,2),16), parseInt(h.slice(2,4),16), parseInt(h.slice(4,6),16)];
+  }
+  function mix(rgb, amount){
+    return 'rgb(' + rgb.map(function(v,i){
+      return Math.round(GROUND[i] + (v - GROUND[i]) * amount);
+    }).join(',') + ')';
+  }
+  function rgba(rgb, a){ return 'rgba(' + rgb.join(',') + ',' + a + ')'; }
+
+  var tinted = null;
+  function paint(color){
+    if (color === tinted) return;
+    tinted = color;
+    if (!color) {
+      tint.style.backgroundColor = 'rgb(14,12,11)';
+      bloom.style.opacity = '0';
+      header.style.borderColor = '';
+      return;
+    }
+    var rgb = hexToRgb(color);
+    /* a wash you feel rather than see, and a bloom that carries the hue */
+    tint.style.backgroundColor = mix(rgb, 0.085);
+    bloom.style.setProperty('--bloom', rgba(rgb, 0.42));
+    bloom.style.opacity = '0.30';
+    header.style.borderColor = mix(rgb, 0.22);
+  }
+
+  /* whichever piece sits nearest the middle of the screen wins */
+  var pieces = Array.prototype.slice.call(document.querySelectorAll('.piece'));
+  var painting = false;
+  function pickColor(){
+    if (painting) return; painting = true;
+    requestAnimationFrame(function(){
+      var mid = window.innerHeight / 2, best = null, bestD = Infinity;
+      for (var i=0;i<pieces.length;i++){
+        var r = pieces[i].getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) continue;
+        var d = Math.abs((r.top + r.bottom)/2 - mid);
+        if (d < bestD) { bestD = d; best = pieces[i]; }
+      }
+      paint(best ? best.style.getPropertyValue('--c').trim() : null);
+      painting = false;
+    });
+  }
+  window.addEventListener('scroll', pickColor, { passive:true });
+  window.addEventListener('resize', pickColor);
+  pickColor();
+
   document.getElementById('yr').textContent = String(new Date().getFullYear());
+  if (location.hash) fromHash();
 })();
 </script>
 </body>
