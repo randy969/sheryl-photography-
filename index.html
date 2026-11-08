@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sheryl Ross Photography</title>
-<meta name="description" content="Fine art photography by Sheryl Ross. Close-up flowers, sunsets and landscapes. A celebration of colors.">
+<meta name="description" content="Images of nature by Sheryl Ross. Close-up flowers, sunsets and landscapes. A celebration of colors.">
 <meta name="theme-color" content="#0E0C0B">
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta property="og:type" content="website">
@@ -149,6 +149,9 @@ button { font-family: inherit; }
   display: flex; flex-direction: column; justify-content: flex-end; gap: 18px; }
 .hero h1 { font-size: clamp(44px, 13vw, 118px); font-weight: 300; line-height: .96;
   letter-spacing: .06em; text-transform: uppercase; }
+@media (max-width: 520px) { .hero .eyebrow .dot { display:none } .hero .eyebrow span:last-child { display:block } }
+.hero .eyebrow { font-size: clamp(17px, 4.6vw, 22px); font-weight: 700; letter-spacing: .1em; color: #FAF8F3;
+  text-shadow: 0 1px 12px rgba(0,0,0,.55); }
 .hero .tag { max-width: 24ch; font-size: clamp(21px, 5.4vw, 32px); font-style: italic;
   font-weight: 300; line-height: 1.4; color: #EDE7DB; }
 .cue { display:inline-flex; align-items:center; gap:12px; margin-top:6px; text-decoration:none;
@@ -210,9 +213,9 @@ button { font-family: inherit; }
 @media (min-width: 900px) { .about__grid { grid-template-columns: minmax(0,1fr) minmax(0,1.5fr); } }
 .about .eyebrow { color: var(--ink-soft); }
 .about h2 { font-size: clamp(34px,8vw,56px); font-weight:300; letter-spacing:.06em; text-transform:uppercase; margin-top:12px; }
-.about .lede { font-size: clamp(21px,4.6vw,26px); line-height:1.5; color:#2A2823; }
+.about .lede { font-size:19px; line-height:1.72; color:#322F29; }
 .about .body { margin-top:22px; font-size:19px; line-height:1.72; color:#322F29; }
-.about .sig { margin-top:30px; font-style:italic; font-size:25px; line-height:1.4; color:#2A2823; }
+.about .sig { margin-top:22px; font-style:italic; font-size:19px; line-height:1.72; color:#322F29; }
 .portrait { margin-top:26px; aspect-ratio:4/5;
   background: repeating-linear-gradient(135deg, transparent 0 11px, rgba(0,0,0,.03) 11px 22px), #EFEBE2;
   border:1px solid var(--rule-lt); display:flex; align-items:center; justify-content:center;
@@ -274,6 +277,16 @@ button { font-family: inherit; }
 .contact .wrap { padding-block: clamp(44px,7vw,84px); display:flex; flex-direction:column; gap:24px;
   border-top: 1px solid var(--hair); }
 .contact h2 { font-size: clamp(30px,6.4vw,50px); font-weight:300; max-width:18ch; }
+.cform { display:grid; gap:16px; max-width:640px; }
+.cform label { display:grid; gap:7px; font-size:14px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+.cform input, .cform textarea { font: inherit; font-size:18px; font-weight:400; letter-spacing:normal; text-transform:none; color:var(--fg);
+  background:transparent; border:2px solid var(--hair); padding:13px 15px; border-radius:0; width:100%; }
+.cform input:focus, .cform textarea:focus { outline:none; border-color:var(--dusk); }
+.cform textarea { min-height:150px; resize:vertical; }
+.cform .hp { position:absolute; left:-9999px; }
+.cform .btn { justify-self:start; cursor:pointer; font-family:inherit; }
+.cform .btn[disabled] { opacity:.6; cursor:wait; }
+.cnote { font-size:18px; color:var(--dusk); min-height:1.4em; }
 .mail { display:inline-flex; align-items:center; min-height:58px; padding:13px 24px;
   border:2px solid var(--dusk); color:var(--dusk); text-decoration:none;
   font-size: clamp(18px,4.4vw,24px); align-self:flex-start; word-break:break-all; }
@@ -367,17 +380,14 @@ body.locked { overflow:hidden; }
     <a href="#work">The Work<span>20 photographs</span></a>
     <a href="#about">About Sheryl<span>Her story</span></a>
     <a href="#prints">Prints<span>Buy a piece</span></a>
-    <a href="#contact">Contact<span>Email her</span></a>
+    <a href="#contact">Contact<span>Email Sheryl</span></a>
   </nav>
-  <div class="mfoot">
-    <a href="mailto:sherylross21@gmail.com">sherylross21@gmail.com</a>
-  </div>
 </div>
 
 <section class="hero" id="top">
   <div class="hero__img"><img src="photos/sunset-sea-full.jpg" alt="The sun setting over open water beneath a bank of cloud" fetchpriority="high"></div>
   <div class="wrap">
-    <p class="eyebrow">Fine Art Photography &nbsp;&middot;&nbsp; New Jersey</p>
+    <p class="eyebrow"><span style="white-space:nowrap">Images of Nature</span><span class="dot"> &nbsp;&middot;&nbsp; </span> <span style="white-space:nowrap">New Jersey</span></p>
     <h1>Sheryl Ross</h1>
     <p class="tag">A celebration of colors.</p>
     <a class="cue" href="#work"><i></i> See the work</a>
@@ -386,7 +396,7 @@ body.locked { overflow:hidden; }
 
 <section class="intro">
   <div class="wrap">
-    <p class="rev">The simple beauty in flowers, at a scale the eye does not normally get to.</p>
+    <p class="rev">The simple beauty in nature, at a scale the eye does not normally get to.</p>
     <p class="eyebrow by rev">Close-up Flowers &nbsp;&middot;&nbsp; Sunsets &nbsp;&middot;&nbsp; Landscapes</p>
   </div>
 </section>
@@ -416,10 +426,6 @@ body.locked { overflow:hidden; }
           srcset="photos/portrait-grid.jpg 1000w, photos/portrait-full.jpg 1600w"
           sizes="(max-width: 899px) 92vw, 34vw" loading="lazy" decoding="async"
           alt="Sheryl Ross smiling with her Nikon raised, morning glories on the wall behind her"></div>
-        <div class="portrait"><img src="photos/portrait-2-grid.jpg"
-          srcset="photos/portrait-2-grid.jpg 1000w, photos/portrait-2-full.jpg 1600w"
-          sizes="(max-width: 899px) 92vw, 34vw" loading="lazy" decoding="async"
-          alt="Sheryl Ross in front of a white fence beneath trailing vines"></div>
       </div>
       <div>
         <p class="lede">Sheryl Ross is a local artist that captures the simple beauty in flowers throughout NJ and beyond. She brings a simplistic view, yet personal approach to the beauty in nature that surrounds us all. Sheryl&rsquo;s goal is to share her artwork in a way that evokes emotions of the heart and brings peace and relaxation to rest our busy minds. She hopes you enjoy her artwork of a celebration of colors, as much as she enjoys creating it.</p>
@@ -437,11 +443,10 @@ body.locked { overflow:hidden; }
     <div class="prints__t">
       <p class="eyebrow">If something stays with you</p>
       <h2>Every photograph here can hang on a wall.</h2>
-      <p>Archival prints, signed and numbered, framed or unframed. Four sizes.</p>
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap">
-      <a class="btn" id="shopBtn" href="#contact">See the prints</a>
-      <a class="btn btn--quiet" href="mailto:sherylross21@gmail.com?subject=A%20print">Ask Sheryl</a>
+      <a class="btn" id="shopBtn" href="#work">See the prints</a>
+      <a class="btn btn--quiet" href="#contact" data-about="a print">Ask Sheryl</a>
     </div>
   </div>
 </section>
@@ -449,8 +454,15 @@ body.locked { overflow:hidden; }
 <section class="contact" id="contact">
   <div class="wrap">
     <p class="eyebrow">Get in touch</p>
-    <h2>Prints, commissions, and exhibitions.</h2>
-    <a class="mail" href="mailto:sherylross21@gmail.com">sherylross21@gmail.com</a>
+    <h2>Available for local exhibitions.</h2>
+    <form class="cform" name="contact" method="POST" id="cform">
+      <p class="hp"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
+      <label>Your name <input name="name" autocomplete="name" required></label>
+      <label>Your email <input type="email" name="email" autocomplete="email" required></label>
+      <label>Message <textarea name="message" id="cmsg" required></textarea></label>
+      <button class="btn" type="submit">Email Sheryl</button>
+      <p class="cnote" id="cnote" role="status" aria-live="polite"></p>
+    </form>
   </div>
 </section>
 
@@ -797,6 +809,32 @@ var ALL = PHOTOS.concat(SUNSETS);
 
   document.getElementById('yr').textContent = String(new Date().getFullYear());
   if (location.hash || /\/p\//.test(location.pathname)) fromHash();
+})();
+
+/* Contact form: sent through FormSubmit to Sheryl without showing her address. */
+(function(){
+  var f=document.getElementById('cform'); if(!f) return;
+  var msg=document.getElementById('cmsg'), note=document.getElementById('cnote');
+  function prefill(t){ if(t && !msg.value) msg.value='I am interested in '+t+'. '; }
+  prefill(new URLSearchParams(location.search).get('about'));
+  document.querySelectorAll('[data-about]').forEach(function(a){
+    a.addEventListener('click',function(){ prefill(a.getAttribute('data-about')); });
+  });
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var b=f.querySelector('button'); b.disabled=true; note.textContent='Sending...';
+    var d=new FormData(f);
+    if(d.get('company')){ f.reset(); note.textContent='Sent. Sheryl will write back soon.'; b.disabled=false; return; }
+    var to=['sherylross21','gmail.com'].join('@');
+    fetch('https://formsubmit.co/ajax/'+to,{method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name:d.get('name'),email:d.get('email'),message:d.get('message'),
+        _subject:'New message from imagesbysherylross.com',_template:'table',_captcha:'false'})})
+    .then(function(r){ return r.json(); })
+    .then(function(j){ if(String(j.success)!=='true') throw 0; f.reset(); note.textContent='Sent. Sheryl will write back soon.'; })
+    .catch(function(){ note.textContent='That did not go through. Please try again in a minute.'; })
+    .then(function(){ b.disabled=false; });
+  });
 })();
 </script>
 </body>
