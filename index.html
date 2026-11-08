@@ -213,9 +213,9 @@ button { font-family: inherit; }
 @media (min-width: 900px) { .about__grid { grid-template-columns: minmax(0,1fr) minmax(0,1.5fr); } }
 .about .eyebrow { color: var(--ink-soft); }
 .about h2 { font-size: clamp(34px,8vw,56px); font-weight:300; letter-spacing:.06em; text-transform:uppercase; margin-top:12px; }
-.about .lede { font-size:19px; line-height:1.72; color:#322F29; }
-.about .body { margin-top:22px; font-size:19px; line-height:1.72; color:#322F29; }
-.about .sig { margin-top:22px; font-style:italic; font-size:19px; line-height:1.72; color:#322F29; }
+.about .lede { font-size:clamp(19px,1.9vw,23px); line-height:1.7; color:#322F29; }
+.about .body { margin-top:22px; font-size:clamp(19px,1.9vw,23px); line-height:1.7; color:#322F29; }
+.about .sig { margin-top:22px; font-style:italic; font-size:clamp(19px,1.9vw,23px); line-height:1.7; color:#322F29; }
 .portrait { margin-top:26px; aspect-ratio:4/5;
   background: repeating-linear-gradient(135deg, transparent 0 11px, rgba(0,0,0,.03) 11px 22px), #EFEBE2;
   border:1px solid var(--rule-lt); display:flex; align-items:center; justify-content:center;
@@ -358,7 +358,7 @@ body.locked { overflow:hidden; }
     <nav class="nav" aria-label="Sections">
       <a class="pill" href="#work">The Work</a>
       <a class="pill" href="#about">About</a>
-      <a class="pill" href="#prints">Prints</a>
+      <a class="pill" href="#work">Prints</a>
       <a class="pill" href="#contact">Contact</a>
     </nav>
     <button type="button" class="menubtn" id="menuBtn" aria-expanded="false" aria-controls="menu">
@@ -379,7 +379,7 @@ body.locked { overflow:hidden; }
     <a href="#top">Home<span>Top</span></a>
     <a href="#work">The Work<span>20 photographs</span></a>
     <a href="#about">About Sheryl<span>Her story</span></a>
-    <a href="#prints">Prints<span>Buy a piece</span></a>
+    <a href="#work">Prints<span>Buy a piece</span></a>
     <a href="#contact">Contact<span>Email Sheryl</span></a>
   </nav>
 </div>
@@ -476,7 +476,7 @@ body.locked { overflow:hidden; }
 <nav class="bar" aria-label="Main">
   <a href="#top"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/></svg><span>Home</span></a>
   <a href="#work"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7.5" height="7.5"/><rect x="13.5" y="3" width="7.5" height="7.5"/><rect x="3" y="13.5" width="7.5" height="7.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5"/></svg><span>Work</span></a>
-  <a href="#prints"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16"/><path d="M8 8h8v8H8z"/></svg><span>Prints</span></a>
+  <a href="#work"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16"/><path d="M8 8h8v8H8z"/></svg><span>Prints</span></a>
   <a href="#contact"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5.5" width="18" height="13"/><path d="m3 7 9 6 9-6"/></svg><span>Contact</span></a>
 </nav>
 
@@ -598,9 +598,12 @@ var ALL = PHOTOS.concat(SUNSETS);
         var t = document.getElementById(id);
         if (t && t.getBoundingClientRect().top <= 150) cur = '#' + id;
       });
-      pills.concat(barLinks).forEach(function(a){
-        if (a.getAttribute('href') === cur) a.setAttribute('aria-current','true');
-        else a.removeAttribute('aria-current');
+      [pills, barLinks].forEach(function(set){
+        var hit = false;
+        set.forEach(function(a){
+          if (!hit && a.getAttribute('href') === cur) { a.setAttribute('aria-current','true'); hit = true; }
+          else a.removeAttribute('aria-current');
+        });
       });
       ticking = false;
     });
