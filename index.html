@@ -455,8 +455,7 @@ body.locked { overflow:hidden; }
   <div class="wrap">
     <p class="eyebrow">Get in touch</p>
     <h2>Available for local exhibitions.</h2>
-    <form class="cform" name="contact" method="POST" action="/" data-netlify="true" netlify-honeypot="company" id="cform">
-      <input type="hidden" name="form-name" value="contact">
+    <form class="cform" name="contact" method="POST" id="cform">
       <p class="hp"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
       <label>Your name <input name="name" autocomplete="name" required></label>
       <label>Your email <input type="email" name="email" autocomplete="email" required></label>
@@ -812,7 +811,7 @@ var ALL = PHOTOS.concat(SUNSETS);
   if (location.hash || /\/p\//.test(location.pathname)) fromHash();
 })();
 
-/* Contact form: Netlify Forms, sent without leaving the page. */
+/* Contact form: sent through FormSubmit to Sheryl without showing her address. */
 (function(){
   var f=document.getElementById('cform'); if(!f) return;
   var msg=document.getElementById('cmsg'), note=document.getElementById('cnote');
@@ -824,9 +823,15 @@ var ALL = PHOTOS.concat(SUNSETS);
   f.addEventListener('submit',function(e){
     e.preventDefault();
     var b=f.querySelector('button'); b.disabled=true; note.textContent='Sending...';
-    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
-      body:new URLSearchParams(new FormData(f)).toString()})
-    .then(function(r){ if(!r.ok) throw 0; f.reset(); note.textContent='Sent. Sheryl will write back soon.'; })
+    var d=new FormData(f);
+    if(d.get('company')){ f.reset(); note.textContent='Sent. Sheryl will write back soon.'; b.disabled=false; return; }
+    var to=['sherylross21','gmail.com'].join('@');
+    fetch('https://formsubmit.co/ajax/'+to,{method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name:d.get('name'),email:d.get('email'),message:d.get('message'),
+        _subject:'New message from imagesbysherylross.com',_template:'table',_captcha:'false'})})
+    .then(function(r){ return r.json(); })
+    .then(function(j){ if(String(j.success)!=='true') throw 0; f.reset(); note.textContent='Sent. Sheryl will write back soon.'; })
     .catch(function(){ note.textContent='That did not go through. Please try again in a minute.'; })
     .then(function(){ b.disabled=false; });
   });
