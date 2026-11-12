@@ -10,7 +10,10 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Sheryl Ross Photography">
 <meta property="og:description" content="A celebration of colors. Close-up flowers, sunsets and landscapes.">
-<meta property="og:image" content="photos/sunset-sea-grid.jpg">
+<meta property="og:image" content="https://sheryl-ross.onrender.com/photos/sunset-sea-grid.jpg">
+<meta property="og:url" content="https://sheryl-ross.onrender.com/">
+<link rel="canonical" href="https://sheryl-ross.onrender.com/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap">
@@ -50,8 +53,8 @@ body::before { content:""; position: fixed; inset: 0 0 auto; height: env(safe-ar
    drifts with it. Slow enough to feel rather than notice. */
 .tint { position: fixed; inset: 0; z-index: -2; background: var(--ground);
   transition: background-color 1500ms cubic-bezier(.33,.7,.3,1); }
-.bloom { position: fixed; inset: -20% -10% auto; height: 120vh; z-index: -1;
-  pointer-events: none; opacity: .30; filter: blur(90px);
+.bloom { position: fixed; inset: -20% 0 auto; height: 120vh; z-index: -1;
+  pointer-events: none; opacity: .30; filter: blur(90px); transform: scaleX(1.2);
   background: radial-gradient(60% 50% at 50% 38%, var(--bloom, transparent) 0%, transparent 72%);
   transition: background 1500ms cubic-bezier(.33,.7,.3,1), opacity 1200ms ease; }
 @media (prefers-reduced-motion: reduce) {
@@ -385,7 +388,7 @@ body.locked { overflow:hidden; }
 </div>
 
 <section class="hero" id="top">
-  <div class="hero__img"><img src="photos/sunset-sea-full.jpg" alt="The sun setting over open water beneath a bank of cloud" fetchpriority="high"></div>
+  <div class="hero__img"><img src="/photos/sunset-sea-full.jpg" alt="The sun setting over open water beneath a bank of cloud" fetchpriority="high"></div>
   <div class="wrap">
     <p class="eyebrow"><span style="white-space:nowrap">Images of Nature</span><span class="dot"> &nbsp;&middot;&nbsp; </span> <span style="white-space:nowrap">New Jersey</span></p>
     <h1>Sheryl Ross</h1>
@@ -412,7 +415,7 @@ body.locked { overflow:hidden; }
 </main>
 
 <section class="quote">
-  <div class="quote__img"><img src="photos/petunia-full.jpg" alt="" loading="lazy"></div>
+  <div class="quote__img"><img src="/photos/petunia-full.jpg" alt="" loading="lazy"></div>
   <div class="wrap"><p class="rev">Close up vibrant details, meant to awaken passion and excitement.</p></div>
 </section>
 
@@ -422,8 +425,8 @@ body.locked { overflow:hidden; }
       <div>
         <p class="eyebrow">About the artist</p>
         <h2>Sheryl Ross</h2>
-        <div class="portrait"><img src="photos/portrait-grid.jpg"
-          srcset="photos/portrait-grid.jpg 1000w, photos/portrait-full.jpg 1600w"
+        <div class="portrait"><img src="/photos/portrait-grid.jpg"
+          srcset="/photos/portrait-grid.jpg 1000w, /photos/portrait-full.jpg 1600w"
           sizes="(max-width: 899px) 92vw, 34vw" loading="lazy" decoding="async"
           alt="Sheryl Ross smiling with her Nikon raised, morning glories on the wall behind her"></div>
       </div>
@@ -557,8 +560,8 @@ var ALL = PHOTOS.concat(SUNSETS);
 
       var f = el('div','piece__frame');
       var img = new Image();
-      img.src = 'photos/' + p.slug + '-grid.jpg';
-      img.srcset = 'photos/' + p.slug + '-grid.jpg 1400w, photos/' + p.slug + '-full.jpg 2300w';
+      img.src = '/photos/' + p.slug + '-grid.jpg';
+      img.srcset = '/photos/' + p.slug + '-grid.jpg 1400w, /photos/' + p.slug + '-full.jpg 2300w';
       img.sizes = p.span === 's6' ? '94vw' : (p.span === 's3' ? '(max-width:699px) 92vw, 47vw' : '(max-width:699px) 92vw, 31vw');
       img.alt = p.title + ', a photograph by Sheryl Ross';
       img.decoding = 'async';
@@ -624,13 +627,13 @@ var ALL = PHOTOS.concat(SUNSETS);
     lb.style.setProperty('--c', p.color);
     stage.innerHTML = '';
     var img = new Image();
-    img.src = 'photos/' + p.slug + '-full.jpg';
+    img.src = '/photos/' + p.slug + '-full.jpg';
     img.alt = p.title + ', a close-up photograph by Sheryl Ross';
     img.decoding = 'async';
     stage.appendChild(img);
     [1,-1].forEach(function(d){
       var n = ALL[(cur+d+ALL.length)%ALL.length];
-      var pre = new Image(); pre.src = 'photos/' + n.slug + '-full.jpg';
+      var pre = new Image(); pre.src = '/photos/' + n.slug + '-full.jpg';
     });
     lbTitle.textContent = p.title;
     lbIdx.textContent = 'Photograph ' + (cur+1) + ' of ' + ALL.length;
@@ -712,8 +715,8 @@ var ALL = PHOTOS.concat(SUNSETS);
       card.className = 'setcard';
       card.innerHTML =
         '<div class="setcard__img"><span class="setcard__n">' + s.n + '</span>' +
-        '<img src="photos/sets/' + s.f + '-sm.jpg"' +
-        ' srcset="photos/sets/' + s.f + '-sm.jpg 640w, photos/sets/' + s.f + '.jpg 1200w"' +
+        '<img src="/photos/sets/' + s.f + '-sm.jpg"' +
+        ' srcset="/photos/sets/' + s.f + '-sm.jpg 640w, /photos/sets/' + s.f + '.jpg 1200w"' +
         ' sizes="(max-width: 899px) 86vw, 430px" loading="lazy" decoding="async"' +
         ' alt="' + s.d + '"></div>' +
         '<h3>' + s.t + '</h3><p>' + s.d + '</p>';
