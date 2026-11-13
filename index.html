@@ -10,7 +10,10 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Sheryl Ross Photography">
 <meta property="og:description" content="A celebration of colors. Close-up flowers, sunsets and landscapes.">
-<meta property="og:image" content="photos/sunset-sea-grid.jpg">
+<meta property="og:image" content="https://imagesbysherylross.com/photos/sunset-sea-grid.jpg">
+<meta property="og:url" content="https://imagesbysherylross.com/">
+<link rel="canonical" href="https://imagesbysherylross.com/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap">
@@ -50,9 +53,9 @@ body::before { content:""; position: fixed; inset: 0 0 auto; height: env(safe-ar
    drifts with it. Slow enough to feel rather than notice. */
 .tint { position: fixed; inset: 0; z-index: -2; background: var(--ground);
   transition: background-color 1500ms cubic-bezier(.33,.7,.3,1); }
-.bloom { position: fixed; inset: -20% -10% auto; height: 120vh; z-index: -1;
+.bloom { position: fixed; inset: -20% 0 auto; height: 120vh; z-index: -1;
   pointer-events: none; opacity: .30; filter: blur(90px);
-  background: radial-gradient(60% 50% at 50% 38%, var(--bloom, transparent) 0%, transparent 72%);
+  background: radial-gradient(72% 50% at 50% 38%, var(--bloom, transparent) 0%, transparent 72%);
   transition: background 1500ms cubic-bezier(.33,.7,.3,1), opacity 1200ms ease; }
 @media (prefers-reduced-motion: reduce) {
   .tint, .bloom { transition-duration: 1ms; }
@@ -135,7 +138,7 @@ button { font-family: inherit; }
 
 /* ------------------------------------------------------------ hero ----- */
 .hero { position: relative; overflow: hidden; }
-.hero__img { position: absolute; inset: 0; }
+.hero__img { position: absolute; inset: 0; overflow: hidden; }
 .hero__img img { width:100%; height:100%; object-fit: cover; object-position: center 68%;
   opacity: .96; transform: scale(1.06); }
 @media (prefers-reduced-motion: no-preference) {
@@ -213,9 +216,9 @@ button { font-family: inherit; }
 @media (min-width: 900px) { .about__grid { grid-template-columns: minmax(0,1fr) minmax(0,1.5fr); } }
 .about .eyebrow { color: var(--ink-soft); }
 .about h2 { font-size: clamp(34px,8vw,56px); font-weight:300; letter-spacing:.06em; text-transform:uppercase; margin-top:12px; }
-.about .lede { font-size:19px; line-height:1.72; color:#322F29; }
-.about .body { margin-top:22px; font-size:19px; line-height:1.72; color:#322F29; }
-.about .sig { margin-top:22px; font-style:italic; font-size:19px; line-height:1.72; color:#322F29; }
+.about .lede { font-size:clamp(19px,1.9vw,23px); line-height:1.7; color:#322F29; }
+.about .body { margin-top:22px; font-size:clamp(19px,1.9vw,23px); line-height:1.7; color:#322F29; }
+.about .sig { margin-top:22px; font-style:italic; font-size:clamp(19px,1.9vw,23px); line-height:1.7; color:#322F29; }
 .portrait { margin-top:26px; aspect-ratio:4/5;
   background: repeating-linear-gradient(135deg, transparent 0 11px, rgba(0,0,0,.03) 11px 22px), #EFEBE2;
   border:1px solid var(--rule-lt); display:flex; align-items:center; justify-content:center;
@@ -358,7 +361,7 @@ body.locked { overflow:hidden; }
     <nav class="nav" aria-label="Sections">
       <a class="pill" href="#work">The Work</a>
       <a class="pill" href="#about">About</a>
-      <a class="pill" href="#prints">Prints</a>
+      <a class="pill" href="#work">Prints</a>
       <a class="pill" href="#contact">Contact</a>
     </nav>
     <button type="button" class="menubtn" id="menuBtn" aria-expanded="false" aria-controls="menu">
@@ -379,13 +382,13 @@ body.locked { overflow:hidden; }
     <a href="#top">Home<span>Top</span></a>
     <a href="#work">The Work<span>20 photographs</span></a>
     <a href="#about">About Sheryl<span>Her story</span></a>
-    <a href="#prints">Prints<span>Buy a piece</span></a>
+    <a href="#work">Prints<span>Buy a piece</span></a>
     <a href="#contact">Contact<span>Email Sheryl</span></a>
   </nav>
 </div>
 
 <section class="hero" id="top">
-  <div class="hero__img"><img src="photos/sunset-sea-full.jpg" alt="The sun setting over open water beneath a bank of cloud" fetchpriority="high"></div>
+  <div class="hero__img"><img src="/photos/sunset-sea-full.jpg" alt="The sun setting over open water beneath a bank of cloud" fetchpriority="high"></div>
   <div class="wrap">
     <p class="eyebrow"><span style="white-space:nowrap">Images of Nature</span><span class="dot"> &nbsp;&middot;&nbsp; </span> <span style="white-space:nowrap">New Jersey</span></p>
     <h1>Sheryl Ross</h1>
@@ -412,7 +415,7 @@ body.locked { overflow:hidden; }
 </main>
 
 <section class="quote">
-  <div class="quote__img"><img src="photos/petunia-full.jpg" alt="" loading="lazy"></div>
+  <div class="quote__img"><img src="/photos/petunia-full.jpg" alt="" loading="lazy"></div>
   <div class="wrap"><p class="rev">Close up vibrant details, meant to awaken passion and excitement.</p></div>
 </section>
 
@@ -422,8 +425,8 @@ body.locked { overflow:hidden; }
       <div>
         <p class="eyebrow">About the artist</p>
         <h2>Sheryl Ross</h2>
-        <div class="portrait"><img src="photos/portrait-grid.jpg"
-          srcset="photos/portrait-grid.jpg 1000w, photos/portrait-full.jpg 1600w"
+        <div class="portrait"><img src="/photos/portrait-grid.jpg"
+          srcset="/photos/portrait-grid.jpg 1000w, /photos/portrait-full.jpg 1600w"
           sizes="(max-width: 899px) 92vw, 34vw" loading="lazy" decoding="async"
           alt="Sheryl Ross smiling with her Nikon raised, morning glories on the wall behind her"></div>
       </div>
@@ -478,7 +481,7 @@ body.locked { overflow:hidden; }
 <nav class="bar" aria-label="Main">
   <a href="#top"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/></svg><span>Home</span></a>
   <a href="#work"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7.5" height="7.5"/><rect x="13.5" y="3" width="7.5" height="7.5"/><rect x="3" y="13.5" width="7.5" height="7.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5"/></svg><span>Work</span></a>
-  <a href="#prints"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16"/><path d="M8 8h8v8H8z"/></svg><span>Prints</span></a>
+  <a href="#work"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16"/><path d="M8 8h8v8H8z"/></svg><span>Prints</span></a>
   <a href="#contact"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5.5" width="18" height="13"/><path d="m3 7 9 6 9-6"/></svg><span>Contact</span></a>
 </nav>
 
@@ -557,8 +560,8 @@ var ALL = PHOTOS.concat(SUNSETS);
 
       var f = el('div','piece__frame');
       var img = new Image();
-      img.src = 'photos/' + p.slug + '-grid.jpg';
-      img.srcset = 'photos/' + p.slug + '-grid.jpg 1400w, photos/' + p.slug + '-full.jpg 2300w';
+      img.src = '/photos/' + p.slug + '-grid.jpg';
+      img.srcset = '/photos/' + p.slug + '-grid.jpg 1400w, /photos/' + p.slug + '-full.jpg 2300w';
       img.sizes = p.span === 's6' ? '94vw' : (p.span === 's3' ? '(max-width:699px) 92vw, 47vw' : '(max-width:699px) 92vw, 31vw');
       img.alt = p.title + ', a photograph by Sheryl Ross';
       img.decoding = 'async';
@@ -600,9 +603,12 @@ var ALL = PHOTOS.concat(SUNSETS);
         var t = document.getElementById(id);
         if (t && t.getBoundingClientRect().top <= 150) cur = '#' + id;
       });
-      pills.concat(barLinks).forEach(function(a){
-        if (a.getAttribute('href') === cur) a.setAttribute('aria-current','true');
-        else a.removeAttribute('aria-current');
+      [pills, barLinks].forEach(function(set){
+        var hit = false;
+        set.forEach(function(a){
+          if (!hit && a.getAttribute('href') === cur) { a.setAttribute('aria-current','true'); hit = true; }
+          else a.removeAttribute('aria-current');
+        });
       });
       ticking = false;
     });
@@ -621,13 +627,13 @@ var ALL = PHOTOS.concat(SUNSETS);
     lb.style.setProperty('--c', p.color);
     stage.innerHTML = '';
     var img = new Image();
-    img.src = 'photos/' + p.slug + '-full.jpg';
+    img.src = '/photos/' + p.slug + '-full.jpg';
     img.alt = p.title + ', a close-up photograph by Sheryl Ross';
     img.decoding = 'async';
     stage.appendChild(img);
     [1,-1].forEach(function(d){
       var n = ALL[(cur+d+ALL.length)%ALL.length];
-      var pre = new Image(); pre.src = 'photos/' + n.slug + '-full.jpg';
+      var pre = new Image(); pre.src = '/photos/' + n.slug + '-full.jpg';
     });
     lbTitle.textContent = p.title;
     lbIdx.textContent = 'Photograph ' + (cur+1) + ' of ' + ALL.length;
@@ -709,8 +715,8 @@ var ALL = PHOTOS.concat(SUNSETS);
       card.className = 'setcard';
       card.innerHTML =
         '<div class="setcard__img"><span class="setcard__n">' + s.n + '</span>' +
-        '<img src="photos/sets/' + s.f + '-sm.jpg"' +
-        ' srcset="photos/sets/' + s.f + '-sm.jpg 640w, photos/sets/' + s.f + '.jpg 1200w"' +
+        '<img src="/photos/sets/' + s.f + '-sm.jpg"' +
+        ' srcset="/photos/sets/' + s.f + '-sm.jpg 640w, /photos/sets/' + s.f + '.jpg 1200w"' +
         ' sizes="(max-width: 899px) 86vw, 430px" loading="lazy" decoding="async"' +
         ' alt="' + s.d + '"></div>' +
         '<h3>' + s.t + '</h3><p>' + s.d + '</p>';
@@ -827,7 +833,7 @@ var ALL = PHOTOS.concat(SUNSETS);
     var b=f.querySelector('button'); b.disabled=true; note.textContent='Sending...';
     var d=new FormData(f);
     if(d.get('company')){ f.reset(); note.textContent='Sent. Sheryl will write back soon.'; b.disabled=false; return; }
-    var to=['sherylross21','gmail.com'].join('@');
+    var to='22c339b566e5b50fc19495a1e66df11d';
     fetch('https://formsubmit.co/ajax/'+to,{method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify({name:d.get('name'),email:d.get('email'),message:d.get('message'),
